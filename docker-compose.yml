@@ -1,0 +1,26 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_USER: music
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - ./datadir:/var/lib/mysql
+
+  app:
+    build: .
+    command: bash -c 'while !</dev/tcp/db/3306; do sleep 2; done; python /usr/src/app/musicapp/manage.py runserver 0.0.0.0:3000'
+    volumes:
+      - $PWD:/usr/src/app
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    container_name: django_app
