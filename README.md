@@ -22,3 +22,6 @@ docker exec -it *container ID* bash
     
 docker-compose down 
   opposite of up - brings everything down
+
+sudo chown -R $USER:$USER .
+  If a file gets created in the container vs on your host machine root will own it. This will just fix it so you own it and can edit.
