@@ -8,7 +8,7 @@ docker-compose build
 docker images
 
 docker-compose up
-  this starts running shit?
+  this starts running things
   
 docker ps -a
   shows you ports that things are running on
