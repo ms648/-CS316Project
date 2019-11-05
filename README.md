@@ -1,4 +1,4 @@
-# -CS316Project
+# CS316Project
 
 docker-compose build
   builds docker images
