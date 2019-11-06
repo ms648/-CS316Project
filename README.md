@@ -60,4 +60,4 @@ if something doesn't seem to be updating (e.g. new migrations), do docker-compos
 
 if there are any issues with finding a directory, change installed apps in settings.py (never will do this again, but needed for setup)
 
-What's happening backend: user goes to url. url then goes to view and index.html then gets stuff
+#What's happening backend: user goes to url. url then goes to view and index.html then gets stuff
