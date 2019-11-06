@@ -47,3 +47,9 @@ in container, do ./manage.py createsuperuser
 if it says development.auth_user doesn't exist, do ./manage.py migrate
 
 then do ./manage.py createsuperuser 
+
+next:
+./manage.py shell gives interactive shell (to test commands if needed)
+
+can type localhost:3000/music to see users stuff
+localhost:3000/admin to view admin page
