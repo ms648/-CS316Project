@@ -25,3 +25,5 @@ docker-compose down
 
 sudo chown -R $USER:$USER .
   If a file gets created in the container vs on your host machine root will own it. This will just fix it so you own it and can edit.
+
+localhost:3000 to get to it on web browser.
