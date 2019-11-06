@@ -9,5 +9,8 @@ class Member(models.Model):
 	name =  models.CharField(max_length = 256)
 	email = models.CharField(max_length = 64)
 
+	class Meta:
+		db_table = "Members"
+
 	def __str__(self):
 		return self.name
