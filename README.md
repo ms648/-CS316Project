@@ -53,3 +53,11 @@ next:
 
 can type localhost:3000/music to see users stuff
 localhost:3000/admin to view admin page
+
+we are working mostly in teacher_musicapp (MVC in there)
+
+if something doesn't seem to be updating (e.g. new migrations), do docker-compose up then down
+
+if there are any issues with finding a directory, change installed apps in settings.py (never will do this again, but needed for setup)
+
+What's happening backend: user goes to url. url then goes to view and index.html then gets stuff
