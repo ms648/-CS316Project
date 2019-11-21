@@ -17,7 +17,7 @@ class Member(models.Model):
 
 class Student(models.Model):
 	goals = models.CharField(max_length = 1000)
-	student_id = models.IntegerField()
+	student_id = models.IntegerField(primary_key = True)
 
 	class Meta:
 		db_table = "Students"
