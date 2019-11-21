@@ -14,3 +14,13 @@ class Member(models.Model):
 
 	def __str__(self):
 		return self.name
+
+class Student(models.Model):
+	goals = models.CharField(max_length = 1000)
+	student_id = models.IntegerField()
+
+	class Meta:
+		db_table = "Students"
+
+	def __str__(self):
+		return self.student_id
