@@ -6,3 +6,19 @@
 {%   for student in students    %}
     <h3> {{student.student_id}} </h3>
 {%   endfor    %}
+<h1> Teachers </h1>
+{%   for teacher in teachers    %}
+    <h3> {{teacher.teacher_id}} </h3>
+{%   endfor    %}
+<h1> Trackables </h1>
+{%   for trackable in trackables    %}
+    <h3> {{trackable.name}} </h3>
+{%   endfor    %}
+<h1> Recordings </h1>
+{%   for recording in recordings    %}
+    <h3> {{recording.student}} </h3>
+{%   endfor    %}
+<h1> Notes </h1>
+{%   for note in notes    %}
+    <h3> {{note.note}} </h3>
+{%   endfor    %}
