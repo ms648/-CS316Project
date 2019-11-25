@@ -34,3 +34,8 @@ def index(request):
         'notes': notes
     }
     return render(request, "teacher_musicapp/index.html", context)
+
+
+def frontend(request):
+    template = loader.get_template('teacher_musicapp/frontend.html') #load this specific tempalte
+    return render(request, "teacher_musicapp/frontend.html")
