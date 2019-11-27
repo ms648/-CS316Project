@@ -25,13 +25,13 @@ VALUES	('student bio...', 1),
 	('student bio...', 10);
 
 INSERT INTO IsStudentOf (student_id ,teacher_id ,instrument ,start_date ,end_date) 
-VALUES	(1, 6, 'Piano', '2019-01-01', NULL),
-	(3, 2, 'Piano', '2019-01-01', NULL),
-	(4, 9, 'Cello', '2019-01-01', NULL),
-	(5, 2, 'Piano', '2019-01-01', NULL),
-	(7, 2, 'Piano', '2019-01-01', NULL),
-	(8, 6, 'Piano', '2019-01-01', NULL),
-	(10, 2, 'Piano', '2019-01-01', NULL);
+VALUES	(1,1, 6, 'Piano', '2019-01-01', NULL),
+	(2,3, 2, 'Piano', '2019-01-01', NULL),
+	(3,4, 9, 'Cello', '2019-01-01', NULL),
+	(4,5, 2, 'Piano', '2019-01-01', NULL),
+	(5,7, 2, 'Piano', '2019-01-01', NULL),
+	(6,8, 6, 'Piano', '2019-01-01', NULL),
+	(7,10, 2, 'Piano', '2019-01-01', NULL);
 
 INSERT INTO Trackables (name ,instrument) 
 VALUES	(1,'Sight Reading', 'Cello'),
