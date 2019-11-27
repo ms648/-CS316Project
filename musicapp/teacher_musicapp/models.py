@@ -43,7 +43,7 @@ class Trackable(models.Model):
 		db_table = "Trackables"
 
 	def __str__(self):
-		return self.name
+		return self.name + self.instrument
 
 class Recording(models.Model):
 	day = models.DateField()
