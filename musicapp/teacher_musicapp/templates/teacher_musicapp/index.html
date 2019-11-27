@@ -12,11 +12,11 @@
 {%   endfor    %}
 <h1> Trackables </h1>
 {%   for trackable in trackables    %}
-    <h3> {{trackable.name}} </h3>
+    <h3> {{trackable.name + trackable.instrument}} </h3>
 {%   endfor    %}
 <h1> Recordings </h1>
 {%   for recording in recordings    %}
-    <h3> {{recording.student}} </h3>
+    <h3> {{recording.location}} </h3>
 {%   endfor    %}
 <h1> Notes </h1>
 {%   for note in notes    %}
