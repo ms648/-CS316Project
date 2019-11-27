@@ -14,11 +14,13 @@ create table Teachers(
   foreign key (teacher_id) references Members(id));
   
 create table Trackables(
+  id integer,
   name varchar(48),
   instrument varchar(48),
   primary key(name, instrument));
   
 create table Recordings(
+  id integer,
   day date,
   trackable_name varchar(48),
   trackable_instrument varchar(48),
@@ -29,6 +31,7 @@ create table Recordings(
   foreign key (trackable_name, trackable_instrument) references Trackables(name,instrument));
   
 create table Notes(
+  id integer,
   student_id integer references Students(student_id),
   trackable_name varchar(48),
   trackable_instrument varchar(48),
@@ -37,6 +40,7 @@ create table Notes(
   foreign key (trackable_name, trackable_instrument) references Trackables(name,instrument));
   
 create table IsStudentOf(
+  id integer,
   student_id integer references Students(student_id),
   teacher_id integer references Teachers(teacher_id),
   instrument varchar(48),
@@ -45,6 +49,7 @@ create table IsStudentOf(
   primary key(student_id, teacher_id, start_date, instrument));
   
 create table Creates(
+  id integer,
   trackable_name varchar(48),
   trackable_instrument varchar(48),
   teacher_id integer references Teachers(teacher_id),
@@ -57,6 +62,7 @@ create table Creates(
   foreign key (trackable_name, trackable_instrument) references Trackables(name, instrument));
  
 create table IsAssigned(
+  id integer,
   practice_day date,
   time integer,
   student_id integer references Students(student_id),
