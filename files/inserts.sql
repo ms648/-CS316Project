@@ -24,7 +24,7 @@ VALUES	('student bio...', 1),
 	('student bio...', 8),
 	('student bio...', 10);
 
-INSERT INTO IsStudentOf (student_id ,teacher_id ,instrument ,start_date ,end_date) 
+INSERT INTO IsStudentOf (id, student_id ,teacher_id ,instrument ,start_date ,end_date) 
 VALUES	(1,1, 6, 'Piano', '2019-01-01', NULL),
 	(2,3, 2, 'Piano', '2019-01-01', NULL),
 	(3,4, 9, 'Cello', '2019-01-01', NULL),
@@ -33,7 +33,7 @@ VALUES	(1,1, 6, 'Piano', '2019-01-01', NULL),
 	(6,8, 6, 'Piano', '2019-01-01', NULL),
 	(7,10, 2, 'Piano', '2019-01-01', NULL);
 
-INSERT INTO Trackables (name ,instrument) 
+INSERT INTO Trackables (id, name ,instrument) 
 VALUES	(1,'Sight Reading', 'Cello'),
 	(2,'Scales', 'Cello'),
 	(3,'Pieces', 'Cello'),
@@ -47,7 +47,7 @@ VALUES	(1,'Sight Reading', 'Cello'),
 	(11,'Music Theory', 'Piano'),
 	(12,'Free Time', 'Piano');
 
-INSERT INTO Creates (trackable_name ,trackable_instrument ,teacher_id ,student_id ,date_assigned ,date_removed ,active ,current_duration) 
+INSERT INTO Creates (id, trackable_name ,trackable_instrument ,teacher_id ,student_id ,date_assigned ,date_removed ,active ,current_duration) 
 VALUES	(1,'Sight Reading', 'Piano', 6, 1, '2019-01-01', NULL, 1, 5),
 	(2,'Scales', 'Piano', 6, 1, '2019-01-01', NULL, 1, 5),
 	(3,'Pieces', 'Piano', 6, 1, '2019-01-01', NULL, 0, 5),
@@ -91,7 +91,7 @@ VALUES	(1,'Sight Reading', 'Piano', 6, 1, '2019-01-01', NULL, 1, 5),
 	(41,'Music Theory', 'Piano', 2, 10, '2019-01-01', NULL, 0, 45),
 	(42,'Free Time', 'Piano', 2, 10, '2019-01-01', NULL, 1, 45);
 
-INSERT INTO IsAssigned (practice_day ,time ,student_id ,trackable_name ,trackable_instrument) 
+INSERT INTO IsAssigned (id, practice_day ,time ,student_id ,trackable_name ,trackable_instrument) 
 VALUES	(1,'2019-01-01', 20, 1, 'Scales', 'Piano'),
 	(2,'2019-01-01', 20, 1, 'Technique', 'Piano'),
 	(3,'2019-01-01', 20, 1, 'Free Time', 'Piano'),
@@ -342,7 +342,7 @@ VALUES	(1,'2019-01-01', 20, 1, 'Scales', 'Piano'),
 	(248,'2019-01-10', 25, 10, 'Music Theory', 'Piano'),
 	(249,'2019-01-10', 25, 10, 'Pieces', 'Piano');
 
-INSERT INTO Recordings (day ,trackable_name ,trackable_instrument ,duration ,location ,student) 
+INSERT INTO Recordings (id, day ,trackable_name ,trackable_instrument ,duration ,location ,student) 
 VALUES	(1,'2019-01-01', 'Scales', 'Piano', 14, 'file_location...', 1),
 	(2,'2019-01-01', 'Technique', 'Piano', 1, 'file_location...', 1),
 	(3,'2019-01-01', 'Free Time', 'Piano', 9, 'file_location...', 1),
