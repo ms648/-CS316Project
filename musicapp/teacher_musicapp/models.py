@@ -43,7 +43,7 @@ class Trackable(models.Model):
 		db_table = "Trackables"
 
 	def __str__(self):
-		return self.name + self.instrument
+		return self.name + " " + self.instrument
 
 class Recording(models.Model):
 	day = models.DateField()
@@ -56,7 +56,7 @@ class Recording(models.Model):
 		db_table = "Recordings"
 
 	def __str__(self):
-		return self.trackable_name + self.student
+		return self.trackable_name + " " + str(self.student)
 
 class Note(models.Model):
 	student_id = models.IntegerField()
@@ -68,7 +68,7 @@ class Note(models.Model):
 		db_table = "Notes"
 
 	def __str__(self):
-		return self.trackable_name + self.student_id
+		return self.trackable_name + " " + str(self.student_id)
 
 class IsStudentOf(models.Model):
 	student_id = models.IntegerField()
@@ -81,7 +81,7 @@ class IsStudentOf(models.Model):
 		db_table = "IsStudentOf"
 
 	def __str__(self):
-		return self.teacher_id + self.student_id
+		return str(self.teacher_id) + " " + str(self.student_id)
 
 class Creates(models.Model):
 	trackable_name = models.CharField(max_length = 48)
@@ -97,7 +97,7 @@ class Creates(models.Model):
 		db_table = "Creates"
 
 	def __str__(self):
-		return self.trackable_name + self.teacher_id
+		return self.trackable_name + " " + str(self.teacher_id)
 
 class IsAssigned(models.Model):
 	practice_day = models.DateField()
