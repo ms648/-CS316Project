@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.template import loader
 from .models import Member,Student,Teacher,Trackable,Recording,Note,IsStudentOf,Creates,IsAssigned
+from django.db.models import Sum
 
 
 # Create your views here.
@@ -16,6 +17,10 @@ from .models import Member,Student,Teacher,Trackable,Recording,Note,IsStudentOf,
 def index(request):
     #this is checking how many students teacher_id 2
     query1 = IsStudentOf.objects.filter(teacher_id = 2).count()
+    #this is checking the total duration of practice by student 1 on date 
+    query2 = Recording.objects.filter(student = 1, day = '2019-01-01').aggregate(Sum('duration')).get('duration__sum')
+    #this is checking the total duration of practice assigned to student 1 on date 
+    query3 = IsAssigned.objects.filter(student_id = 1, practice_day = '2019-01-01').aggregate(Sum('time')).get('time__sum')
     users = Member.objects.all()
     students = Student.objects.all()
     teachers = Teacher.objects.all()
@@ -35,7 +40,9 @@ def index(request):
         'trackables': trackables,
         'recordings': recordings,
         'notes': notes,
-        'query1':query1
+        'query1':query1,
+        'query2':query2,
+        'query3':query3
     }
     return render(request, "teacher_musicapp/index.html", context)
 
