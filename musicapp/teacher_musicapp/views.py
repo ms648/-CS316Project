@@ -36,7 +36,6 @@ def index(request):
         'users': users,
         'students': students,
         'teachers': teachers,
-        'students': students,
         'trackables': trackables,
         'recordings': recordings,
         'notes': notes,
@@ -50,3 +49,33 @@ def index(request):
 def frontend(request):
     template = loader.get_template('teacher_musicapp/frontend.html') #load this specific tempalte
     return render(request, "teacher_musicapp/frontend.html")
+
+
+def frontend2(request):
+
+    users = Member.objects.all()
+    students = Student.objects.all()
+    teachers = Teacher.objects.all()
+    trackables = Trackable.objects.all()
+    recordings = Recording.objects.all()
+    notes = Note.objects.all()
+    query = Recording.objects.filter(student = 1, day = '2019-01-01').aggregate(Sum('duration')).get('duration__sum')
+
+
+    template = loader.get_template('teacher_musicapp/frontend2.html') #load this specific template
+    context = {
+        'users': users,
+        'students': students,
+        'teachers': teachers,
+        'trackables': trackables,
+        'recordings': recordings,
+        'notes': notes,
+        'query': query
+    }
+
+    
+    return render(request, "teacher_musicapp/frontend2.html", context)
+
+def samson(request):
+    template = loader.get_template('teacher_musicapp/samson.html') #load this specific tempalte
+    return render(request, "teacher_musicapp/samson.html")

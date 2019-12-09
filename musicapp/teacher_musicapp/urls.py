@@ -3,6 +3,9 @@ from . import views
 
 urlpatterns = [
     path("", views.index, name = "index"),
-    path("frontend", views.frontend, name = "frontend")
+    path("ex", views.frontend, name = "frontend"),
+    path("frontend2", views.frontend2, name = "frontend2"),
+    path("samson", views.samson, name = "samson"),
+
 ]
 #views.index tells us when we hit this path (root path) go to views and call the index function
