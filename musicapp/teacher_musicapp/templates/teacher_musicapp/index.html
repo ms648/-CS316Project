@@ -1,30 +1,30 @@
-<h1> Query test 1 </h1>
-<h3> {{query1}} </h3>
-<h1> Query test 2 </h1>
-<h3> {{query2}} </h3>
-<h1> Query test 3 </h1>
-<h3> {{query3}} </h3>
-<h1> Users </h1>
-{%   for user in users    %}
-    <h3> {{user.name}} </h3>
-{%   endfor    %}
-<h1> Students </h1>
-{%   for student in students    %}
-    <h3> {{student.student_id}} </h3>
-{%   endfor    %}
-<h1> Teachers </h1>
-{%   for teacher in teachers    %}
-    <h3> {{teacher.teacher_id}} </h3>
-{%   endfor    %}
-<h1> Trackables </h1>
-{%   for trackable in trackables    %}
-    <h3> {{trackable}} </h3>
-{%   endfor    %}
-<h1> Recordings </h1>
-{%   for recording in recordings    %}
-    <h3> {{recording.location}} </h3>
-{%   endfor    %}
-<h1> Notes </h1>
-{%   for note in notes    %}
-    <h3> {{note.note}} </h3>
-{%   endfor    %}
+<h1>Query test 1</h1>
+<h3>{{query1}}</h3>
+<h1>Query test 2</h1>
+<h3>{{query2}}</h3>
+<h1>Query test 3</h1>
+<h3>{{query3}}</h3>
+<h1>Users</h1>
+{% for user in users %}
+<h3>{{user.name}}</h3>
+{% endfor %}
+<h1>Students</h1>
+{% for student in students %}
+<h3>{{student.student_id}}</h3>
+{% endfor %}
+<h1>Teachers</h1>
+{% for teacher in teachers %}
+<h3>{{teacher.teacher_id}}</h3>
+{% endfor %}
+<h1>Trackables</h1>
+{% for trackable in trackables %}
+<h3>{{trackable}}</h3>
+{% endfor %}
+<h1>Recordings</h1>
+{% for recording in recordings %}
+<h3>{{recording.location}}</h3>
+{% endfor %}
+<h1>Notes</h1>
+{% for note in notes %}
+<h3>{{note.note}}</h3>
+{% endfor %}
