@@ -1,0 +1,19 @@
+<html>
+<head>
+<title>Add Assignment</title>
+</head>
+
+<body>
+<h1>Add an Assignment </h1>
+<form action="" method="POST">
+{% csrf_token %}
+Date: <input type="text" name="date"/><br/>
+Time: <input type="text" name="time"/><br/>
+Student_id: <input type="text" name="student_id"/><br/>
+Name of Assignment: <input type="text" name="trackable_name"/><br/>
+Instrument: <input type="text" name="trackable_instrument"/><br/>
+<input type="submit" value="Add Assignment"/>
+</form>
+</body>
+
+</html>

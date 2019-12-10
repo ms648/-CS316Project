@@ -6,6 +6,7 @@ urlpatterns = [
     path("ex", views.frontend, name = "frontend"),
     path("frontend2", views.frontend2, name = "frontend2"),
     path("samson", views.samson, name = "samson"),
+    path("AddAssignment", views.AddAssignment, name = "AddAssignment"),
 
 ]
 #views.index tells us when we hit this path (root path) go to views and call the index function

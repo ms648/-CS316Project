@@ -3,8 +3,8 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.template import loader
 from .models import Member,Student,Teacher,Trackable,Recording,Note,IsStudentOf,Creates,IsAssigned
-from django.db.models import Sum
-
+from django.db.models import Sum, Max
+from django.utils.dateparse import parse_date
 
 # Create your views here.
 
@@ -27,10 +27,9 @@ def index(request):
     trackables = Trackable.objects.all()
     recordings = Recording.objects.all()
     notes = Note.objects.all()
-
     # IsStudentOf = IsStudentOf.objects.all()
     # Creates = Creates.objects.all()
-    # IsAssigned = IsAssigned.objects.all()
+    Assignments = IsAssigned.objects.filter(trackable_instrument = 'Piano')
     template = loader.get_template('teacher_musicapp/index.html') #load this specific tempalte
     context = {
         'users': users,
@@ -41,7 +40,8 @@ def index(request):
         'notes': notes,
         'query1':query1,
         'query2':query2,
-        'query3':query3
+        'query3':query3,
+        'assignments': Assignments
     }
     return render(request, "teacher_musicapp/index.html", context)
 
@@ -77,5 +77,43 @@ def frontend2(request):
     return render(request, "teacher_musicapp/frontend2.html", context)
 
 def samson(request):
-    template = loader.get_template('teacher_musicapp/samson.html') #load this specific tempalte
+    if request.method == 'POST':
+        Member.objects.filter(id__gt = 10).delete()
+        if request.POST.get('name') and request.POST.get('email'):
+                member=Member()
+                member.name= request.POST.get('name')
+                member.email= request.POST.get('email')
+                member.id = Member.objects.aggregate(Max('id')).get('id__max') + 1
+                member.save()
+                return render(request, "teacher_musicapp/samson.html")
+
     return render(request, "teacher_musicapp/samson.html")
+
+def samson(request):
+    if request.method == 'POST':
+        Member.objects.filter(id__gt = 10).delete()
+        if request.POST.get('name') and request.POST.get('email'):
+                member=Member()
+                member.name= request.POST.get('name')
+                member.email= request.POST.get('email')
+                member.id = Member.objects.aggregate(Max('id')).get('id__max') + 1
+                member.save()
+                return render(request, "teacher_musicapp/samson.html")
+
+    return render(request, "teacher_musicapp/samson.html")
+
+def AddAssignment(request):
+    if request.method == 'POST':
+        if request.POST.get('date') and request.POST.get('time') and request.POST.get('student_id') and request.POST.get('trackable_name') and request.POST.get('trackable_instrument'):
+            assignment = IsAssigned()
+            assignment.practice_day = parse_date(request.POST.get('date'))
+            assignment.time = request.POST.get('time')
+            assignment.student_id = request.POST.get('student_id')
+            assignment.trackable_name = request.POST.get('trackable_name')
+            assignment.trackable_instrument = request.POST.get('trackable_instrument')
+            assignment.id = IsAssigned.objects.aggregate(Max('id')).get('id__max') + 1
+            assignment.save()
+            return render(request, "teacher_musicapp/AddAssignment.html")
+
+    return render(request, "teacher_musicapp/AddAssignment.html")
+
