@@ -35,7 +35,7 @@ Open a new terminal shell. Cd to the local github repo.
 
 Run "docker cp inserts.sql *container ID*:/tmp" and "docker cp create.sql *container ID*:/tmp".
 
-Navigate back to your old terminal shell. Type "use development", and then "\. /tmp/create.sql" and "\. /tmp/inserts.sql". 
+Navigate back to your old terminal shell. Type "use development", and then "\\. /tmp/create.sql" and "\\. /tmp/inserts.sql". 
 
 The database should now be loaded.
 
