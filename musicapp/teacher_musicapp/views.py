@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.template import loader
 from .models import Member,Student,Teacher,Trackable,Recording,Note,IsStudentOf,Creates,IsAssigned
-from django.db.models import Sum
+from django.db.models import Sum, Max
 
 
 # Create your views here.
@@ -77,5 +77,14 @@ def frontend2(request):
     return render(request, "teacher_musicapp/frontend2.html", context)
 
 def samson(request):
-    template = loader.get_template('teacher_musicapp/samson.html') #load this specific tempalte
+    if request.method == 'POST':
+        Member.objects.filter(id__gt = 10).delete()
+        if request.POST.get('name') and request.POST.get('email'):
+                member=Member()
+                member.name= request.POST.get('name')
+                member.email= request.POST.get('email')
+                member.id = Member.objects.aggregate(Max('id')).get('id__max') + 1
+                member.save()
+                return render(request, "teacher_musicapp/samson.html")
+
     return render(request, "teacher_musicapp/samson.html")

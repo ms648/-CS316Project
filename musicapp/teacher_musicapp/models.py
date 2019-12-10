@@ -6,8 +6,9 @@ from django.db import models
 #this is where we write logic that corresponds with database -- business logic
 
 class Member(models.Model):
+	#id = models.IntegerField(primary_key = True)
 	name =  models.CharField(max_length = 256)
-	email = models.CharField(max_length = 64)
+	email = models.CharField(max_length = 64, unique = True)
 
 	class Meta:
 		db_table = "Members"
