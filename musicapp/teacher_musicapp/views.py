@@ -117,3 +117,10 @@ def AddAssignment(request):
 
     return render(request, "teacher_musicapp/AddAssignment.html")
 
+def demoAudio(request):
+    records = ["https://www.computerhope.com/jargon/m/example.mp3"]
+    context = {
+        'records':records
+    }
+    return render(request, "teacher_musicapp/demoAudio.html", context)
+

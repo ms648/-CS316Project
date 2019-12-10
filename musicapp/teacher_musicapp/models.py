@@ -49,6 +49,7 @@ class Trackable(models.Model):
 class Recording(models.Model):
 	day = models.DateField()
 	trackable_name = models.CharField(max_length = 48)
+	trackable_instrument = models.CharField(max_length = 48)
 	duration = models.IntegerField()
 	location = models.CharField(max_length = 100)
 	student = models.IntegerField()
@@ -57,7 +58,7 @@ class Recording(models.Model):
 		db_table = "Recordings"
 
 	def __str__(self):
-		return self.trackable_name + " " + str(self.student)
+		return self.trackable_name + " " + self.trackable_instrument + " "  + str(self.student)
 
 class Note(models.Model):
 	student_id = models.IntegerField()
