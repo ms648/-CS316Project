@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.template import loader
 from .models import Member,Student,Teacher,Trackable,Recording,Note,IsStudentOf,Creates,IsAssigned
 from django.db.models import Sum
+from django import forms
+from django.utils import timezone
+from .forms import MyStudentForm
 
 
 # Create your views here.
@@ -49,6 +52,20 @@ def index(request):
 def frontend(request):
     template = loader.get_template('teacher_musicapp/frontend.html') #load this specific tempalte
     return render(request, "teacher_musicapp/frontend.html")
+
+
+def add_model(request):
+    if request.method == "POST":
+        form = MyStudentForm(request.POST)
+        if form.is_valid():
+            model_instance = form.save(commit=False)
+            model_instance.timestamp = timezone.now()
+            model_instance.save()
+            return redirect('/')
+    else:
+        form = MyStudentForm()
+        return render(request, "my_template.html", {'form': form})
+
 
 
 def frontend2(request):
