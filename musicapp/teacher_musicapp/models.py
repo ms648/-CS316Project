@@ -111,4 +111,4 @@ class IsAssigned(models.Model):
 		db_table = "IsAssigned"
 
 	def __str__(self):
-		return self.trackable_name
+		return self.trackable_name + " " + self.trackable_instrument + " " + str(self.student_id)

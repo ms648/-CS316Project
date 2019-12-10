@@ -6,7 +6,7 @@
 <h3>{{query3}}</h3>
 <h1>Users</h1>
 {% for user in users %}
-<h3>{{user.id}}</h3>
+<h3>{{user}}</h3>
 {% endfor %}
 <h1>Students</h1>
 {% for student in students %}
@@ -19,6 +19,10 @@
 <h1>Trackables</h1>
 {% for trackable in trackables %}
 <h3>{{trackable}}</h3>
+{% endfor %}
+<h1>Assignments</h1>
+{% for assignment in assignments %}
+<h3>{{assignment}}</h3>
 {% endfor %}
 <h1>Recordings</h1>
 {% for recording in recordings %}
