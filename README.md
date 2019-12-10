@@ -21,7 +21,7 @@ In the same directory as the project, run "docker-compose build" to create the d
 
 Next, run "docker-compose up" to start running things. 
 
-Use "docker ps -a" to view ports that are running on and to obtain the "container ID".
+Use "docker ps -a" to view ports that are running on and to obtain the "container ID" for the mysql container.
 
 Using the container ID, enter "docker exec -it [container ID] bash". You are now inside of the docker database container.
 
@@ -33,7 +33,7 @@ Enter "mysql -u root -p". This will prompt you for a password. Type in "example"
 
 Open a new terminal shell. Cd to the local github repo.
 
-Run "docker cp inserts.sql *container ID*/tmp" and "docker cp create.sql *container ID*/tmp".
+Run "docker cp inserts.sql *container ID*:/tmp" and "docker cp create.sql *container ID*:/tmp".
 
 Navigate back to your old terminal shell. Type "use development", and then "\. /tmp/create.sql" and "\. /tmp/inserts.sql". 
 
