@@ -59,6 +59,7 @@ def frontend2(request):
     trackables = Trackable.objects.all()
     recordings = Recording.objects.all()
     notes = Note.objects.all()
+    isassigned = IsAssigned.objects.all()
     query = Recording.objects.filter(student = 1, day = '2019-01-01').aggregate(Sum('duration')).get('duration__sum')
 
 
@@ -70,7 +71,8 @@ def frontend2(request):
         'trackables': trackables,
         'recordings': recordings,
         'notes': notes,
-        'query': query
+        'query': query,
+        'isassigned': isassigned
     }
 
     
