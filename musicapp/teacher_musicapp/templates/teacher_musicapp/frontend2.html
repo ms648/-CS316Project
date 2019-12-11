@@ -223,7 +223,7 @@
                 <div class="col" style="width:100%">
                     <div class = "tab-content">
                         <div class="tab-pane" id="practice-tab">
-                            <div class="row" style="justify-content: center;" id="nameRow">
+                            <div class="row" style="justify-content: center; ; margin-bottom: 3rem" id="nameRow">
                                 <h1 class="childName" id="childName" style="color: #6d4b9a"></h1>
                             </div>
                             {% for recording in recordings %}
@@ -237,8 +237,30 @@
                             {% endfor %}
                         </div>
                         <div class="tab-pane" id="assign-tab">
-                            <div class="row" style="justify-content: center;" id="nameRow">
-                                <h1 class="childName" style="color: #6d4b9a"></h1>
+                            <div class="row" style="justify-content: center; margin-bottom: 2rem" id="nameRow">
+                                     <h1 class="childName" style="color: #6d4b9a; justify-self: center"></h1>
+                                
+                            </div>
+                            <!-- <div class="row" id="addassignment" style="margin: 2rem 1rem">
+                                <button> Add New Assignment</button>
+                            </div> -->
+                            <div class = "row" style="margin: 3px 0; font-size: 1rem; margin-bottom: 0.75rem">
+                                    
+                                <button style="align-self: center; border-radius: .25rem; background-color: #6d4b9a; color: white" id="newassign"> 
+                                    Add New Assignment
+                                </button>
+
+                                <form action="" method="POST" style="display: none" id="assignmentform">
+                                        {% csrf_token %}
+                                        Date of Assignment: <input type="text" name="date"/><br/>
+                                        Length of Assignment: <input type="text" name="time"/><br/>
+                                        Type of Assignment: <input type="text" name="trackable_name"/><br/>
+                                        Instrument: <input type="text" name="trackable_instrument"/><br/>
+                                        <input type="hidden" name="student_id" id="assignmentid"/>
+                                        <input id="submit" style="margin-top: 3px; align-self: center; border-radius: .25rem; background-color: #6d4b9a; color: white" type="submit" value="Add Assignment"/>
+                                    </form>
+
+                                
                             </div>
                             {% for assignment in isassigned %}
                                 <div class="{{assignment.student_id}}assignment" style="display: none">
@@ -278,6 +300,18 @@
             $(document).ready(function() {
                 practice()
                 setActive()
+            })
+
+            $("#submit").on('click', function() {
+                alert("SUBMIT")
+            })
+
+            $("#newassign").on('click', function() {
+                $(this).attr("style", "display: none")
+                var form = document.getElementById("assignmentform")
+                form.style.display = "initial"
+                var id = document.getElementById("assignmentid")
+                id.setAttribute("value", window.localStorage.getItem("activeID"))
             })
 
             $(".name-body ul li a[id='1id']").on('click', function() {
