@@ -260,7 +260,14 @@
                                     <div class="row" style="border: 2px solid #6d4b9a; margin: 3px 0; font-size: 1rem">
                                         <div class = "col-2" style="border-right: 2px solid #6d4b9a"> {{recording.day}}</div>
                                         <div class = "col-2" style="border-right: 2px solid #6d4b9a"> {{recording.trackable_name}}</div>
-                                        <div class = "col" > {{recording.location}}</div>
+                                        <!-- <div class = "col" > {{recording.location}}</div> -->
+                                         {{ recording.location.split("/")[-1] }}
+                                        <div class="col" style="border-right: 2px solid #6d4b9a">
+                                            <audio controls>
+                                                <!-- <source src="audio/ExampleAudio0.mp3"> -->
+                                                <source src="audio/"+"{{ recording.location.split('/')[-1] }}">
+                                            </audio>
+                                        </div>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -566,5 +573,8 @@
                 element.html(name)
             }   
         </script>
+        <audio controls>
+            <source src="ms648/CS316Project/public/audio/ExampleAudio46.mp3">
+        </audio>
     </body>
 </html>

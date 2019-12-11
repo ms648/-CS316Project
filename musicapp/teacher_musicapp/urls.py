@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.index, name = "index"),
@@ -10,4 +12,5 @@ urlpatterns = [
     path("AddStudent", views.AddStudent, name = "AddStudent"),
     path("demoAudio", views.demoAudio, name = "demoAudio"),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #views.index tells us when we hit this path (root path) go to views and call the index function
