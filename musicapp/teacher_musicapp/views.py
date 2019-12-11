@@ -97,10 +97,27 @@ def samson(request):
                 member.name= request.POST.get('name')
                 member.email= request.POST.get('email')
                 member.id = Member.objects.aggregate(Max('id')).get('id__max') + 1
+                messages.info(request, 'Your password has been changed successfully!')
                 member.save()
                 return render(request, "teacher_musicapp/samson.html")
 
     return render(request, "teacher_musicapp/samson.html")
+
+def AddStudent(request):
+    if request.method == 'POST':
+        if request.POST.get('goals') and request.POST.get('name') and request.POST.get('email'):
+                member=Member()
+                member.name= request.POST.get('name')
+                member.email= request.POST.get('email')
+                member.id = Member.objects.aggregate(Max('id')).get('id__max') + 1
+                student=Student()
+                student.goals = request.POST.get('goals')
+                student.student_id= member.id
+                member.save()
+                student.save()
+                return render(request, "teacher_musicapp/AddStudent.html")
+
+    return render(request, "teacher_musicapp/AddStudent.html")
 
 def AddAssignment(request):
     if request.method == 'POST':
@@ -118,7 +135,7 @@ def AddAssignment(request):
     return render(request, "teacher_musicapp/AddAssignment.html")
 
 def demoAudio(request):
-    records = ["https://www.computerhope.com/jargon/m/example.mp3"]
+    records = ["ms648/CS316Project/public/audio/ExampleAudio01.mp3"]
     context = {
         'records':records
     }

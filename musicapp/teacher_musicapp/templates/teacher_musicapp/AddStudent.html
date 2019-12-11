@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>Add Student</title>
+</head>
+
+<body>
+<h1>Add a Student </h1>
+<form action="" method="POST">
+{% csrf_token %}
+Name: <input type="text" name="name"/><br/>
+Email: <input type="text" name="email"/><br/>
+Goals: <input type="text" name="goals"/><br/>
+<input type="submit" value="Add Student"/>
+</form>
+</body>
+
+</html>
