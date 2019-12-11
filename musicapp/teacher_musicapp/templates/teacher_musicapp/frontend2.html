@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <!-- Bootstrap CSS -->
+
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+        <title>Hello, world!</title>
+
+        <style>
+            .topnav {
+                background-color: #6d4b9a;
+                color: #fff;
+                border-radius: 0.25rem;
+            }
+            #account {
+                color: white;
+                padding-right: 1rem;
+            }
+            html,
+            body {
+                height: 100%;
+            }
+            .collapsed{
+                background-color: #b0a8b9;
+                color: #6d4b9a;
+            }
+            .nav-link {
+                padding: 0.25rem;
+            }
+            
+            .name-body ul li a {
+                color: #6d4b9a;
+                border: 2px;
+                border-style: solid;
+                padding: 0.25rem 0.5rem;
+                padding-left: 1rem;
+            }
+            .name-body ul li a:hover, 
+            .name-body ul li a[aria-expanded="true"]{
+                background-color: white;
+            }
+            .nav-tabs .nav-link, .nav-tabs .nav-link.active {
+                border: 0px;
+                color: #6d4b9a;
+            }
+            .name-body ul li a[aria-expanded="true"] {
+                border-bottom: 0;
+                border-right: 0;
+            }
+            .name-body ul li ul li {
+                color: #6d4b9a;
+                background-color: white;
+                border: 2px;
+                border-style: solid;
+                border-color: transparent;
+            }
+            .name-body ul li ul li a {
+                color: #6d4b9a;
+                border: 0;
+            }
+            #studentpractice, #studentassign {
+                padding-left: .25rem;
+            }
+            
+            .collapse.show,
+            .collapsing {
+                background-color: white;
+                border: 2px;
+                border-style: solid;
+                border-color: #6d4b9a;
+                border-top: 0;
+                border-right: 0;
+
+                color: #6d4b9a;
+                padding-bottom: 0.5rem;
+                padding-left: 2rem;
+                padding-top: 0.25rem;
+            }  
+            
+            .nav-tabs .nav-link.active,  .name-body ul li ul li a:hover{
+                background-color: #6d4b9a;
+                color: white;
+                border-radius: 0.5rem;
+            }
+            .h1 {
+                align-self: center
+            }
+            .tab-content {
+                height: 100%;
+                width: 100%
+            }
+        </style>
+        <script>
+            var active = "{{students.0.student_id}}"
+            window.localStorage.setItem("activeID", active)
+        </script>
+    </head>
+    <body>
+        <div
+            class="row-fluid justify-content-center"
+            style="width: 100%; margin: 0px; background-color: #6D4B9A;"
+        >
+            <ul class="nav navbar" style="border: none" id="topnav">
+                <li class="nav-item">
+                    <p
+                        class="nav nav-text"
+                        id="webname"
+                        style="color:white; font-size: 1.5em; padding-left: 0.5rem"
+                    >
+                    Perfect<b>étude</b>
+                    </p>
+                </li>
+                <li class = "nav-item">
+                    <p class = "nav nav-text" id="teacherportal" style="color:white; font-size: 1.25em; padding-right: 0.5rem">
+                        <b>Teacher</b>&nbsp;Portal
+                    </p>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#account"
+                        id="account"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        Profile
+                    </a>
+                </li> -->
+            </ul>
+        </div>
+        <div
+            class="container"
+            style="margin: 0px; padding: 0px; min-height: 100%; height:100%; max-width: 100%; width:100%"
+            id="delete"
+        >
+            <div class="row" style="min-height: 100%; height:100%; width: 100%; min-width: 100%; justify-content: center; margin: 0">
+                <div
+                    class="col-2"
+                    style="background-color: #B0A8B9; color: #6d4b9a; padding: 0"
+                >
+                    <div class=" nav nav-text" id="sidebarTitle">
+                        <h3
+                            style="font-size: 1.5em; margin: 20px auto; border: 2px solid #6d4b9a; padding: 8px; border-radius: 0.25rem; background-color: white"
+                        >
+                            Students
+                        </h3>
+                    </div>
+                    <div class="sidebar" id="sidebar">
+                        <div class="name-body" style="padding: 1rem 0; ">
+                            <ul class="nav navbar" style="padding: .5rem 0">
+                                {% for student in students %} 
+                                {% for user in users %} 
+                                {% if student.student_id == user.id %}
+                                <li
+                                    class="collapsed"
+                                    id="{{student.student_id}}name"
+                                    style="width: 100% "
+                                    username="{{user.name}}"
+                                >
+                                    <a
+                                        class="nav-link dropdown-toggle"
+                                        href="{{student.student_id}}"
+                                        data-toggle="collapse"
+                                        data-target="#student{{student.student_id}}"
+                                        aria-controls="student{{student.student_id}}"
+                                        aria-expanded="false"
+                                        id="{{student.student_id}}id"
+                                        username="{{user.name}}"
+                                        
+                                        >{{user.name}}</a
+                                    >
+                                    <ul
+                                        class="nav navbar nav-tabs flex-column align-items-start collapse"
+                                        id="student{{student.student_id}}"
+                                        aria-labelledby="{{student.student_id}}id"
+                                        data-parent="#sidebar"
+                                        role="tablist"
+                                    >
+                                        <li class="nav-item ">
+                                            <a
+                                                class="nav-link active {{student.student_id}}practice"
+                                                href="#practice"
+                                                id="studentpractice"
+                                                role="tab"
+                                                data-toggle="tab"
+                                                aria-controls="practice"
+                                                aria-selected="true"
+                                                >Practice History</a
+                                            >
+                                        </li>
+                                        <li class="nav-item ">
+                                            <a
+                                            class="nav-link {{student.student_id}}assign"
+                                            href="#assign"
+                                            id="studentassign"
+                                            role="tab"
+                                            data-toggle="tab"
+                                            aria-controls="assign"
+                                            aria-selected="false"
+                                            >Assignments</a
+                                        >
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                {% endif %} {% endfor %} {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    var elem = document.getElementById(
+                        "{{students.0.student_id}}name"
+                    );
+                    window.localStorage.setItem("activeName", elem.getAttribute("username"))
+                    var child1 = elem.firstElementChild
+                    child1.setAttribute("aria-expanded", true);
+                    var child2 = elem.lastElementChild;
+                    child2.className += " show"
+                </script>
+                <div class="col" style="width:100%">
+                    <div class = "tab-content">
+                        <div class="tab-pane active" id="practice">
+                            <div class="row" style="justify-content: center;" id="nameRow">
+                                <h1 class="childName" id="childName" style="color: #6d4b9a"></h1>
+                            </div>
+                            {% for recording in recordings %}
+                                <div class="{{recording.student}}recording" style="display: none">
+                                    <div class="row" style="border: 2px solid #6d4b9a; margin: 3px 0; font-size: 1rem">
+                                        <div class = "col-2" style="border-right: 2px solid #6d4b9a"> {{recording.day}}</div>
+                                        <div class = "col-2" style="border-right: 2px solid #6d4b9a"> {{recording.trackable_name}}</div>
+                                        <div class = "col" > {{recording.location}}</div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="tab-pane" id="assign">
+                            <div class="row" style="justify-content: center;" id="nameRow">
+                                <h1 class="childName" style="color: #6d4b9a"></h1>
+                            </div>
+                            {% for assignment in isassigned %}
+                                <div class="{{assignment.student_id}}assignment" style="display: none">
+                                    <div class="row" style="border: 2px solid #6d4b9a; margin: 3px 0; font-size: 1rem">
+                                        <div class = "col" style="border-right: 2px solid #6d4b9a"> {{assignment.practice_day}}</div>
+                                        <div class = "col" style="border-right: 2px solid #6d4b9a"> {{assignment.trackable_name}}</div>
+                                        <div class = "col" > {{assignment.time}} minutes</div>
+                                        <div class = "col"></div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Optional JavaScript -->
+
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        
+        
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            $(document).ready(function() {
+                practice()
+                setActive()
+            })
+
+            $(".name-body ul li a[aria-expanded='false']").on('click', function(){
+                var id = $(this).attr("href")
+                window.localStorage.setItem("prevID", window.localStorage.getItem("activeID"))
+                window.localStorage.setItem("activeID", id)
+                var name = $(this).attr("username")
+                window.localStorage.setItem("activeName", name)
+                practice()
+                setActive()
+            });
+            $(".name-body ul li ul li a.nav-link").on('click', function() {
+                if($(this).attr("href") == "#practice") {
+                    practice()
+                }
+                if($(this).attr("href") == "#assign") {
+                    assignment()
+                }
+
+                setActive()
+            })
+
+            function practice() {
+                var last = window.localStorage.getItem("prevID")
+                var lastString = last + "recording"
+                var recordingID = window.localStorage.getItem("activeID")
+                var recordingString = recordingID + "recording"
+                var elems = document.getElementsByClassName(lastString)
+                for (var i = 0; i < elems.length; i++) {
+                    elems.item(i).style["display"] = "none"
+                }
+                var elems = document.getElementsByClassName(recordingString)
+                for (var i = 0; i < elems.length; i++) {
+                    elems.item(i).style["display"] = "initial"
+                }
+            }
+
+            function assignment() {
+                var last = window.localStorage.getItem("prevID")
+                var lastString = last + "assignment"
+                var recordingID = window.localStorage.getItem("activeID")
+                var recordingString = recordingID + "assignment"
+                var elems = document.getElementsByClassName(lastString)
+                for (var i = 0; i < elems.length; i++) {
+                    elems.item(i).style["display"] = "none"
+                }
+                var elems = document.getElementsByClassName(recordingString)
+                for (var i = 0; i < elems.length; i++) {
+                    elems.item(i).style["display"] = "initial"
+                }
+            }
+
+            function setActive() {
+                var name = window.localStorage.getItem("activeName")
+                var id = window.localStorage.getItem("activeID")               
+
+                var element = $(".childName")
+                element.html(name)
+            }
+            
+                
+        </script>
+    </body>
+</html>
