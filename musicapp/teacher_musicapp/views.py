@@ -69,6 +69,8 @@ def frontend2(request):
     isassigned = IsAssigned.objects.all()
 
     totalDurations = []
+    averagePractice = []
+
     for student in students:
         id = student.student_id
         name = ""
@@ -77,12 +79,44 @@ def frontend2(request):
                 name = user.name
         total = 0
         student_recordings = Recording.objects.filter(student=id)
+        daySet = set()
         for recording in student_recordings:
             total += recording.duration
+            daySet.add(recording.day)
+        if(len(daySet) > 0):
+            avgDay = total/len(daySet)
+        else:
+            avgDay = 0
+        averagePractice.append((name, avgDay))
         totalDurations.append((name, total))
+        
     totalDurations = sorted(totalDurations, key=lambda x: x[1], reverse=True)
+    averagePractice = sorted(averagePractice, key=lambda x: x[1], reverse=True)
     for i in range(len(totalDurations)):
         totalDurations[i] = (i+1, totalDurations[i][0], totalDurations[i][1])
+    for i in range(len(averagePractice)):
+        averagePractice[i] = (i+1, averagePractice[i][0], round(averagePractice[i][1]))
+
+
+    trackableDict = {}
+    for track in trackables:
+        track = track.name
+        durations = []
+        for student in students:
+            id = student.student_id
+            name = ""
+            for user in users:
+                if user.id == id:
+                    name = user.name
+            total = 0
+            trackable_recordings = Recording.objects.filter(student=id, trackable_name=track)
+            for recording in trackable_recordings:
+                total += recording.duration
+            durations.append((name, total))
+        durations = sorted(durations, key=lambda x: x[1], reverse=True)
+        for i in range(len(durations)):
+            durations[i] = (i+1, durations[i][0], durations[i][1])
+        trackableDict[track] = durations
 
     template = loader.get_template('teacher_musicapp/frontend2.html') #load this specific template
     context = {
@@ -92,7 +126,9 @@ def frontend2(request):
         'trackables': trackables,
         'recordings': recordings,
         'isassigned': isassigned,
-        'totalDurations': totalDurations
+        'totalDurations': totalDurations,
+        'averagePractice': averagePractice,
+        'trackableDict': trackableDict
     }
 
     if request.method == 'POST':

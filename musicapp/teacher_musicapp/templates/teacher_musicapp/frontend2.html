@@ -108,7 +108,7 @@
             tr:nth-child(even) {
                 background-color: #b0a8b9;
             }
-            #totaltime {
+            #totaltime, #avgtime, #pertrack {
                 color: #6d4b9a
             }
         </style>
@@ -331,8 +331,48 @@
                                             
                                     </table>
                             </div>
-                            
                         </div>
+                        <div class="row" id="avgtime" style="justify-content: center; margin-top: 3rem">
+                                <div class ="col">
+                                    <h5> Average Practice Per Day Leaderboard </h3>
+                                        <table id="avgtimetable" style="width:100%; min-width:100%">
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Name</th>
+                                                    <th>Average Practice Per Day</th>
+                                                </tr>
+                                                {%for element in averagePractice%}
+                                                <tr>
+                                                    <th>{{element.0}}</th>
+                                                    <th>{{element.1}}</th>
+                                                    <th>{{element.2}} minutes/day</th>
+                                                </tr>
+                                            {%endfor%}
+                                        </table>
+                                </div>
+                            </div>
+                        {%for track, tracklist in trackableDict.items%}
+                            <div class="row" id="pertrack" style="justify-content: center; margin-top: 3rem">
+                                <div class ="col">
+                                    <h5> {{track}} Leaderboard </h3>
+                                        <table id="avgtimetable" style="width:100%; min-width:100%">
+                                                <tr>
+                                                    <th>Rank</th>
+                                                    <th>Name</th>
+                                                    <th>Time Spent on {{track}}</th>
+                                                </tr>
+                                                {%for element in tracklist%}
+                                                <tr>
+                                                    <th>{{element.0}}</th>
+                                                    <th>{{element.1}}</th>
+                                                    <th>{{element.2}} minutes</th>
+                                                </tr>
+                                            {%endfor%}
+                                        </table>
+                                </div>
+                            </div>
+                
+                        {%endfor%}
                     </div>
                 </div>
                 
