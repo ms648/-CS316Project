@@ -68,6 +68,21 @@ def frontend2(request):
     recordings = Recording.objects.all()
     isassigned = IsAssigned.objects.all()
 
+    totalDurations = []
+    for student in students:
+        id = student.student_id
+        name = ""
+        for user in users:
+            if user.id == id:
+                name = user.name
+        total = 0
+        student_recordings = Recording.objects.filter(student=id)
+        for recording in student_recordings:
+            total += recording.duration
+        totalDurations.append((name, total))
+    totalDurations = sorted(totalDurations, key=lambda x: x[1], reverse=True)
+    for i in range(len(totalDurations)):
+        totalDurations[i] = (i+1, totalDurations[i][0], totalDurations[i][1])
 
     template = loader.get_template('teacher_musicapp/frontend2.html') #load this specific template
     context = {
@@ -76,7 +91,8 @@ def frontend2(request):
         'teachers': teachers,
         'trackables': trackables,
         'recordings': recordings,
-        'isassigned': isassigned
+        'isassigned': isassigned,
+        'totalDurations': totalDurations
     }
 
     if request.method == 'POST':

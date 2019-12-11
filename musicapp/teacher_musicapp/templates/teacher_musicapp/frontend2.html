@@ -100,6 +100,17 @@
             #nameRow {
                 margin-top: 1rem;
             }
+            td, th {
+                border: 1px solid #6d4b9a;
+                text-align: left;
+                padding: 8px;
+            }
+            tr:nth-child(even) {
+                background-color: #b0a8b9;
+            }
+            #totaltime {
+                color: #6d4b9a
+            }
         </style>
         <script>
             var active = "{{students.0.student_id}}"
@@ -157,6 +168,11 @@
                                         <input style="margin-top: 3px; align-self: center; border-radius: .25rem; background-color: #6d4b9a; color: white" type="submit" value="Add Student"/>
                                 </form>
                     </div>
+                    <div class = "row" style="margin: 1rem 0.25rem 0 0.75rem; ">
+                            <button id="viewstats" style = "border-radius: .25rem; background-color: #6d4b9a; color: white"> 
+                                View Student Statistics
+                            </button>
+                    </div>
                     
                     <div class="sidebar" id="sidebar">
                         <div class="name-body" style="padding: 0.5rem 0; ">
@@ -198,6 +214,7 @@
                                                 data-toggle="tab"
                                                 aria-controls="practice-tab"
                                                 aria-selected="true"
+                                                style="padding-left: 0.5rem"
                                                 >Practice History</a
                                             >
                                         </li>
@@ -210,6 +227,7 @@
                                             data-toggle="tab"
                                             aria-controls="assign-tab"
                                             aria-selected="false"
+                                            style="padding-left: 0.5rem"
                                             >Assignments</a
                                         >
                                         </li>
@@ -232,7 +250,7 @@
                     child2.className += " show"
                 </script>
                 <div class="col" style="width:100%">
-                    <div class = "tab-content">
+                    <div class = "tab-content" id="tab-content">
                         <div class="tab-pane" id="practice-tab">
                             <div class="row" style="justify-content: center; ; margin-bottom: 3rem" id="nameRow">
                                 <h1 class="childName" id="childName" style="color: #6d4b9a"></h1>
@@ -293,7 +311,31 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <div id="statistics" style="display:none">
+                        <div class="row" id="totaltime" style="justify-content: center; margin-top: 3rem">
+                            <div class ="col">
+                                <h5> Total Practice Leaderboard </h3>
+                                    <table id="totaltimetable" style="width:100%; min-width:100%">
+                                            <tr>
+                                                <th>Rank</th>
+                                                <th>Name</th>
+                                                <th>Total Time Practiced</th>
+                                            </tr>
+                                            {%for element in totalDurations%}
+                                                <tr>
+                                                    <th>{{element.0}}</th>
+                                                    <th>{{element.1}}</th>
+                                                    <th>{{element.2}} minutes</th>
+                                                </tr>
+                                            {%endfor%}
+                                            
+                                    </table>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
+                
             </div>
 
         <!-- Optional JavaScript -->
@@ -319,6 +361,18 @@
             $(document).ready(function() {
                 practice()
                 setActive()
+            })
+
+            $("#viewstats").on('click', function() {
+                var tabs = document.getElementById("tab-content")
+                tabs.setAttribute("style", "display:none")
+                $(".name-body ul li a[aria-expanded='true']").attr("aria-expanded", false)
+                if ($(".name-body ul li ul").hasClass("show")) {
+                    $(".name-body ul li ul").removeClass("show")
+                }
+
+                var newcontent = document.getElementById("statistics")
+                newcontent.setAttribute("style", "display:initial")
             })
 
             $("#newassign").on('click', function() {
@@ -367,6 +421,14 @@
             })
 
             function practice() {
+                if(document.getElementById("tab-content").getAttribute("style") == "display:none") {
+                    document.getElementById("tab-content").removeAttribute("style")
+                }
+                if(document.getElementById("statistics").getAttribute("style") == "display:initial") {
+                    document.getElementById("statistics").setAttribute("style", "display:none")
+                }
+
+
                 var last = window.localStorage.getItem("prevID")
                 var lastString = last + "recording"
                 var recordingID = window.localStorage.getItem("activeID")
