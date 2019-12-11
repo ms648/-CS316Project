@@ -6,6 +6,9 @@ Perfectétude is a website designed for music teachers to view and manage their 
 
 We used Django for our web framework. Our Models.py file corresponds with our SQL database. It is the relationship with our data, and contains everything related to data access and validation. The Views.py file relates to the Controller in the MVC pattern and handles all the business logic that throws back to the respective templates. Our templates relate to the View in the MVC pattern. It is the presentation layer that handles the presentation logic in the framework and basically controls what should be displayed and how it should be displayed to the user. Urls.py contains all of our various web urls. 
 
+We stress-tested our database to achieve proof of concept. See StressTest.jpg in our main repo.
+
+
 ## Compiling, setting up, deployment
 
 Our project utilizes fake data that we created using a Python script. (See the data_production.py module contained in our zip file)
