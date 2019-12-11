@@ -62,6 +62,8 @@ def frontend(request):
 
 def frontend2(request):
 
+    
+
     users = Member.objects.all()
     students = Student.objects.all()
     teachers = Teacher.objects.all()
@@ -94,6 +96,18 @@ def frontend2(request):
                 assignment.id = IsAssigned.objects.aggregate(Max('id')).get('id__max') + 1
                 assignment.save()
                 return render(request, "teacher_musicapp/frontend2.html")
+
+    if request.method == 'POST':
+        if request.POST.get('date') and request.POST.get('time') and request.POST.get('student_id') and request.POST.get('trackable_name') and request.POST.get('trackable_instrument'):
+            assignment = IsAssigned()
+            assignment.practice_day = parse_date(request.POST.get('date'))
+            assignment.time = request.POST.get('time')
+            assignment.student_id = request.POST.get('student_id')
+            assignment.trackable_name = request.POST.get('trackable_name')
+            assignment.trackable_instrument = request.POST.get('trackable_instrument')
+            assignment.id = IsAssigned.objects.aggregate(Max('id')).get('id__max') + 1
+            assignment.save()
+            return render(request, "teacher_musicapp/frontend2.html", context)
 
     
     return render(request, "teacher_musicapp/frontend2.html", context)
