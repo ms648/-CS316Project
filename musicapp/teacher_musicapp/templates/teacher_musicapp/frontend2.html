@@ -150,8 +150,11 @@
                             Students
                         </h3>
                     </div>
+                    <button style = "margin: 1rem 0.25rem 0 0.25rem; border-radius: .25rem; background-color: #6d4b9a; color: white"> 
+                        Add New Student 
+                    </button>
                     <div class="sidebar" id="sidebar">
-                        <div class="name-body" style="padding: 1rem 0; ">
+                        <div class="name-body" style="padding: 0.5rem 0; ">
                             <ul class="nav navbar" style="padding: .5rem 0">
                                 {% for student in students %} 
                                 {% for user in users %} 
@@ -271,7 +274,24 @@
                                         <div class = "col" style="border-right: 2px solid #6d4b9a"> {{assignment.practice_day}}</div>
                                         <div class = "col" style="border-right: 2px solid #6d4b9a"> {{assignment.trackable_name}}</div>
                                         <div class = "col" style="border-right: 2px solid #6d4b9a" > {{assignment.time}} minutes</div>
-                                        <div class = "col completedvalue"></div>
+                                        <div class = "col completedvalue"> incomplete </div>
+                                        {% for recording in recordings %}
+                                        {% if recording.student == assignment.student_id%}
+                                        {% if recording.trackable_name == assignment.trackable_name%}
+                                        {% if recording.day == assignment.practice_day%}
+                                        {% if recording.duration >= assignment.time%}
+                                        <script>
+                                            var entries = document.getElementsByClassName("col completedvalue")
+                                            for (var i = 0; i < entries.length; i++) {
+                                                entries.item(i).innerHTML = "complete"
+                                            }
+                                        </script>                                          
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        
                                     </div>
                                 </div>
                             {% endfor %}
@@ -305,10 +325,11 @@
                 setActive()
             })
 
+            //initialize all values to incomplete 
             // var entries = document.getElementsByClassName("col completedvalue")
             // for (var i = 0; i < entries.length; i++) {
-                
-            //     // entries.item(i).innerHTML = "complete"
+
+            //     entries.item(i).innerHTML = "incomplete"
             // }
 
             // $("#submit").on('click', function() {

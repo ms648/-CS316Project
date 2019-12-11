@@ -61,17 +61,12 @@ def frontend(request):
 
 
 def frontend2(request):
-
-    
-
     users = Member.objects.all()
     students = Student.objects.all()
     teachers = Teacher.objects.all()
     trackables = Trackable.objects.all()
     recordings = Recording.objects.all()
-    notes = Note.objects.all()
     isassigned = IsAssigned.objects.all()
-    query = Recording.objects.filter(student = 1, day = '2019-01-01').aggregate(Sum('duration')).get('duration__sum')
 
 
     template = loader.get_template('teacher_musicapp/frontend2.html') #load this specific template
@@ -81,21 +76,8 @@ def frontend2(request):
         'teachers': teachers,
         'trackables': trackables,
         'recordings': recordings,
-        'notes': notes,
-        'query': query,
         'isassigned': isassigned
     }
-    if request.method == 'POST':
-            if request.POST.get('date') and request.POST.get('time') and request.POST.get('student_id') and request.POST.get('trackable_name') and request.POST.get('trackable_instrument'):
-                assignment = IsAssigned()
-                assignment.practice_day = parse_date(request.POST.get('date'))
-                assignment.time = request.POST.get('time')
-                assignment.student_id = request.POST.get('student_id')
-                assignment.trackable_name = request.POST.get('trackable_name')
-                assignment.trackable_instrument = request.POST.get('trackable_instrument')
-                assignment.id = IsAssigned.objects.aggregate(Max('id')).get('id__max') + 1
-                assignment.save()
-                return render(request, "teacher_musicapp/frontend2.html")
 
     if request.method == 'POST':
         if request.POST.get('date') and request.POST.get('time') and request.POST.get('student_id') and request.POST.get('trackable_name') and request.POST.get('trackable_instrument'):
