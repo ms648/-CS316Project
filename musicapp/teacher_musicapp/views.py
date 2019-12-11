@@ -91,6 +91,19 @@ def frontend2(request):
             assignment.save()
             return render(request, "teacher_musicapp/frontend2.html", context)
 
+    if request.method == 'POST':
+        if request.POST.get('goals') and request.POST.get('name') and request.POST.get('email'):
+                member=Member()
+                member.name= request.POST.get('name')
+                member.email= request.POST.get('email')
+                member.id = Member.objects.aggregate(Max('id')).get('id__max') + 1
+                student=Student()
+                student.goals = request.POST.get('goals')
+                student.student_id= member.id
+                member.save()
+                student.save()
+                return render(request, "teacher_musicapp/frontend2.html", context)
+
     
     return render(request, "teacher_musicapp/frontend2.html", context)
 

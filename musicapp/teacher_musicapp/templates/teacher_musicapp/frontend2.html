@@ -36,16 +36,16 @@
                 background-color: #b0a8b9;
                 color: #6d4b9a;
             }
-            .nav-link {
-                padding: 0.25rem;
-            }
+            /* .nav-link {
+                /* padding: 0.25rem; 
+            } */
             
             .name-body ul li a {
                 color: #6d4b9a;
                 border: 2px;
                 border-style: solid;
-                padding: 0.25rem 0.5rem;
-                padding-left: 1rem;
+                padding: 0.25rem 0.75rem;
+                padding-left: 1.25rem;
             }
             .name-body ul li a:hover, 
             .name-body ul li a[aria-expanded="true"]{
@@ -70,11 +70,6 @@
                 color: #6d4b9a;
                 border: 0;
             }
-            /* #studentpractice, #studentassign {
-                padding-left: .25rem;
-                /* padding-right: .25rem
-            } */
-            
             .collapse.show,
             .collapsing {
                 background-color: white;
@@ -140,7 +135,7 @@
         >
             <div class="row" style="min-height: 100%; height:100%; width: 100%; min-width: 100%; justify-content: center; margin: 0">
                 <div
-                    class="col-2"
+                    class="col-3"
                     style="background-color: #B0A8B9; color: #6d4b9a; padding: 0"
                 >
                     <div class=" nav nav-text" id="sidebarTitle">
@@ -150,9 +145,19 @@
                             Students
                         </h3>
                     </div>
-                    <button style = "margin: 1rem 0.25rem 0 0.25rem; border-radius: .25rem; background-color: #6d4b9a; color: white"> 
-                        Add New Student 
-                    </button>
+                    <div class = "row" style="margin: 1rem 0.25rem 0 0.75rem; ">
+                            <button id="newstudent" style = "border-radius: .25rem; background-color: #6d4b9a; color: white"> 
+                                    Add New Student 
+                                </button>
+                                <form id="studentform" style="display: none; color: black" action="" method="POST">
+                                        {% csrf_token %}
+                                        Name: <input type="text" name="name"/><br/>
+                                        Email: <input type="text" name="email"/><br/>
+                                        Goals: <input type="text" name="goals"/><br/>
+                                        <input style="margin-top: 3px; align-self: center; border-radius: .25rem; background-color: #6d4b9a; color: white" type="submit" value="Add Student"/>
+                                </form>
+                    </div>
+                    
                     <div class="sidebar" id="sidebar">
                         <div class="name-body" style="padding: 0.5rem 0; ">
                             <ul class="nav navbar" style="padding: .5rem 0">
@@ -247,9 +252,6 @@
                                      <h1 class="childName" style="color: #6d4b9a; justify-self: center"></h1>
                                 
                             </div>
-                            <!-- <div class="row" id="addassignment" style="margin: 2rem 1rem">
-                                <button> Add New Assignment</button>
-                            </div> -->
                             <div class = "row" style="margin: 3px 0; font-size: 1rem; margin-bottom: 0.75rem">
                                     
                                 <button style="align-self: center; border-radius: .25rem; background-color: #6d4b9a; color: white" id="newassign"> 
@@ -274,24 +276,18 @@
                                         <div class = "col" style="border-right: 2px solid #6d4b9a"> {{assignment.practice_day}}</div>
                                         <div class = "col" style="border-right: 2px solid #6d4b9a"> {{assignment.trackable_name}}</div>
                                         <div class = "col" style="border-right: 2px solid #6d4b9a" > {{assignment.time}} minutes</div>
-                                        <div class = "col completedvalue"> incomplete </div>
+                                        <div id="{{assignment.practice_day}}{{assignment.trackable_name}}" style="display:none" class = "col completedvalue"> incomplete </div>  
                                         {% for recording in recordings %}
                                         {% if recording.student == assignment.student_id%}
                                         {% if recording.trackable_name == assignment.trackable_name%}
                                         {% if recording.day == assignment.practice_day%}
                                         {% if recording.duration >= assignment.time%}
-                                        <script>
-                                            var entries = document.getElementsByClassName("col completedvalue")
-                                            for (var i = 0; i < entries.length; i++) {
-                                                entries.item(i).innerHTML = "complete"
-                                            }
-                                        </script>                                          
+                                            <div id="completed" class = "col completedvalue"> complete </div>         
                                         {% endif %}
                                         {% endif %}
                                         {% endif %}
                                         {% endif %}
                                         {% endfor %}
-                                        
                                     </div>
                                 </div>
                             {% endfor %}
@@ -325,24 +321,18 @@
                 setActive()
             })
 
-            //initialize all values to incomplete 
-            // var entries = document.getElementsByClassName("col completedvalue")
-            // for (var i = 0; i < entries.length; i++) {
-
-            //     entries.item(i).innerHTML = "incomplete"
-            // }
-
-            // $("#submit").on('click', function() {
-            //     alert("SUBMIT")
-
-            // })
-
             $("#newassign").on('click', function() {
                 $(this).attr("style", "display: none")
                 var form = document.getElementById("assignmentform")
                 form.style.display = "initial"
                 var id = document.getElementById("assignmentid")
                 id.setAttribute("value", window.localStorage.getItem("activeID"))
+            })
+
+            $("#newstudent").on('click', function() {
+                $(this).attr("style", "display: none")
+                var form = document.getElementById("studentform")
+                form.style.display = "initial"
             })
 
             $(".name-body ul li a[id='1id']").on('click', function() {
@@ -456,7 +446,15 @@
                 }
                 var elems = document.getElementsByClassName(recordingString)
                 for (var i = 0; i < elems.length; i++) {
-                    elems.item(i).style["display"] = "initial"
+                    var assignment = elems.item(i)
+                    assignment.style["display"] = "initial"
+                    var child = assignment.firstElementChild
+                    var count = child.childElementCount
+                    if(count == 4) {
+                        var kids = child.children
+                        kids[3].style.display = "initial"
+                    }
+                    
                 }
             }
 
