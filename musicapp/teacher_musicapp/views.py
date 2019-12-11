@@ -25,8 +25,8 @@ def index(request):
     all_assignments = IsAssigned.objects.filter(student_id = 1)
     all_recordings = Recording.objects.filter(student = 1)
     finished_assignments = []
-    for assign in query4a:
-        for rec in query4b:
+    for assign in all_assignments:
+        for rec in all_recordings:
             if rec.student == assign.student_id and rec.trackable_instrument == assign.trackable_instrument and rec.trackable_name == assign.trackable_name and rec.day == assign.practice_day:
                 finished_assignments.append(assign)
     users = Member.objects.all()
