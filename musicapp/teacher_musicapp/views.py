@@ -21,6 +21,14 @@ def index(request):
     query2 = Recording.objects.filter(student = 1, day = '2019-01-01').aggregate(Sum('duration')).get('duration__sum')
     #this is checking the total duration of practice assigned to student 1 on date 
     query3 = IsAssigned.objects.filter(student_id = 1, practice_day = '2019-01-01').aggregate(Sum('time')).get('time__sum')
+
+    all_assignments = IsAssigned.objects.filter(student_id = 1)
+    all_recordings = Recording.objects.filter(student = 1)
+    finished_assignments = []
+    for assign in query4a:
+        for rec in query4b:
+            if rec.student == assign.student_id and rec.trackable_instrument == assign.trackable_instrument and rec.trackable_name == assign.trackable_name and rec.day == assign.practice_day:
+                finished_assignments.append(assign)
     users = Member.objects.all()
     students = Student.objects.all()
     teachers = Teacher.objects.all()
@@ -41,7 +49,8 @@ def index(request):
         'query1':query1,
         'query2':query2,
         'query3':query3,
-        'assignments': Assignments
+        'assignments': Assignments,
+        'fin':finished_assignments
     }
     return render(request, "teacher_musicapp/index.html", context)
 
@@ -74,6 +83,17 @@ def frontend2(request):
         'query': query,
         'isassigned': isassigned
     }
+    if request.method == 'POST':
+            if request.POST.get('date') and request.POST.get('time') and request.POST.get('student_id') and request.POST.get('trackable_name') and request.POST.get('trackable_instrument'):
+                assignment = IsAssigned()
+                assignment.practice_day = parse_date(request.POST.get('date'))
+                assignment.time = request.POST.get('time')
+                assignment.student_id = request.POST.get('student_id')
+                assignment.trackable_name = request.POST.get('trackable_name')
+                assignment.trackable_instrument = request.POST.get('trackable_instrument')
+                assignment.id = IsAssigned.objects.aggregate(Max('id')).get('id__max') + 1
+                assignment.save()
+                return render(request, "teacher_musicapp/frontend2.html")
 
     
     return render(request, "teacher_musicapp/frontend2.html", context)
@@ -91,19 +111,6 @@ def samson(request):
 
     return render(request, "teacher_musicapp/samson.html")
 
-def samson(request):
-    if request.method == 'POST':
-        Member.objects.filter(id__gt = 10).delete()
-        if request.POST.get('name') and request.POST.get('email'):
-                member=Member()
-                member.name= request.POST.get('name')
-                member.email= request.POST.get('email')
-                member.id = Member.objects.aggregate(Max('id')).get('id__max') + 1
-                messages.info(request, 'Your password has been changed successfully!')
-                member.save()
-                return render(request, "teacher_musicapp/samson.html")
-
-    return render(request, "teacher_musicapp/samson.html")
 
 def AddStudent(request):
     if request.method == 'POST':
