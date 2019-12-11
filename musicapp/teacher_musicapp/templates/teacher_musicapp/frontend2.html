@@ -70,9 +70,10 @@
                 color: #6d4b9a;
                 border: 0;
             }
-            #studentpractice, #studentassign {
+            /* #studentpractice, #studentassign {
                 padding-left: .25rem;
-            }
+                /* padding-right: .25rem
+            } */
             
             .collapse.show,
             .collapsing {
@@ -127,19 +128,6 @@
                         <b>Teacher</b>&nbsp;Portal
                     </p>
                 </li>
-                <!-- <li class="nav-item dropdown">
-                    <a
-                        class="nav-link dropdown-toggle"
-                        href="#account"
-                        id="account"
-                        role="button"
-                        data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                    >
-                        Profile
-                    </a>
-                </li> -->
             </ul>
         </div>
         <div
@@ -191,25 +179,25 @@
                                         role="tablist"
                                     >
                                         <li class="nav-item ">
-                                            <a
-                                                class="nav-link active {{student.student_id}}practice"
+                                           <a
+                                                class="nav-link"
                                                 href="#practice"
-                                                id="studentpractice"
+                                                id="{{student.student_id}}practice"
                                                 role="tab"
                                                 data-toggle="tab"
-                                                aria-controls="practice"
+                                                aria-controls="practice-tab"
                                                 aria-selected="true"
                                                 >Practice History</a
                                             >
                                         </li>
                                         <li class="nav-item ">
-                                            <a
-                                            class="nav-link {{student.student_id}}assign"
+                                        <a
+                                            class="nav-link"
                                             href="#assign"
-                                            id="studentassign"
+                                            id="{{student.student_id}}assign"
                                             role="tab"
                                             data-toggle="tab"
-                                            aria-controls="assign"
+                                            aria-controls="assign-tab"
                                             aria-selected="false"
                                             >Assignments</a
                                         >
@@ -234,7 +222,7 @@
                 </script>
                 <div class="col" style="width:100%">
                     <div class = "tab-content">
-                        <div class="tab-pane active" id="practice">
+                        <div class="tab-pane" id="practice-tab">
                             <div class="row" style="justify-content: center;" id="nameRow">
                                 <h1 class="childName" id="childName" style="color: #6d4b9a"></h1>
                             </div>
@@ -248,7 +236,7 @@
                                 </div>
                             {% endfor %}
                         </div>
-                        <div class="tab-pane" id="assign">
+                        <div class="tab-pane" id="assign-tab">
                             <div class="row" style="justify-content: center;" id="nameRow">
                                 <h1 class="childName" style="color: #6d4b9a"></h1>
                             </div>
@@ -271,7 +259,6 @@
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         
-        
         <script
             src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
             integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
@@ -293,6 +280,16 @@
                 setActive()
             })
 
+            $(".name-body ul li a[id='1id']").on('click', function() {
+                var id = $(this).attr("href")
+                window.localStorage.setItem("prevID", window.localStorage.getItem("activeID"))
+                window.localStorage.setItem("activeID", id)
+                var name = $(this).attr("username")
+                window.localStorage.setItem("activeName", name)
+                practice()
+                setActive()
+            }) 
+
             $(".name-body ul li a[aria-expanded='false']").on('click', function(){
                 var id = $(this).attr("href")
                 window.localStorage.setItem("prevID", window.localStorage.getItem("activeID"))
@@ -302,6 +299,8 @@
                 practice()
                 setActive()
             });
+
+
             $(".name-body ul li ul li a.nav-link").on('click', function() {
                 if($(this).attr("href") == "#practice") {
                     practice()
@@ -309,7 +308,6 @@
                 if($(this).attr("href") == "#assign") {
                     assignment()
                 }
-
                 setActive()
             })
 
@@ -318,6 +316,33 @@
                 var lastString = last + "recording"
                 var recordingID = window.localStorage.getItem("activeID")
                 var recordingString = recordingID + "recording"
+
+                //deselect assignments if selected 
+                var assign = document.getElementById(recordingID + "assign")
+                if(assign.classList.contains("active")) {
+                    assign.className = "nav-link"
+                    assign.setAttribute("aria-selected", false);
+                }
+
+                //add functionality to select practice
+                var practice = document.getElementById(recordingID + "practice")
+                if (!practice.classList.contains("active")) {
+                    practice.className += " active"
+                }
+                practice.setAttribute("aria-selected", true);
+
+                //deactivate assignment content if needed
+                var assigntab = document.getElementById("assign-tab")
+                if (assigntab.classList.contains("active")) {
+                    assigntab.className = "tab-pane"
+                }
+
+                //activate tab content
+                var practicetab = document.getElementById("practice-tab")
+                if (!practicetab.classList.contains("active")) {
+                    practicetab.className += " active"
+                }
+
                 var elems = document.getElementsByClassName(lastString)
                 for (var i = 0; i < elems.length; i++) {
                     elems.item(i).style["display"] = "none"
@@ -333,6 +358,33 @@
                 var lastString = last + "assignment"
                 var recordingID = window.localStorage.getItem("activeID")
                 var recordingString = recordingID + "assignment"
+
+                //if practice selected, remove
+                var practice = document.getElementById(recordingID + "practice")
+                if(practice.classList.contains("active")) {
+                    practice.className = "nav-link"
+                    practice.setAttribute("aria-selected", false);
+                }
+
+                //select assignment
+                var assign = document.getElementById(recordingID + "assign")
+                if (!assign.classList.contains("active")) {
+                    assign.className += " active"
+                }
+                assign.setAttribute("aria-selected", true);
+
+                //deactive practice content
+                var practicetab = document.getElementById("practice-tab")
+                if (practicetab.classList.contains("active")) {
+                    practicetab.className = "tab-pane"
+                }
+
+                //active tab content
+                var assigntab = document.getElementById("assign-tab")
+                if (!assigntab.classList.contains("active")) {
+                    assigntab.className += " active"
+                }
+
                 var elems = document.getElementsByClassName(lastString)
                 for (var i = 0; i < elems.length; i++) {
                     elems.item(i).style["display"] = "none"
@@ -345,13 +397,9 @@
 
             function setActive() {
                 var name = window.localStorage.getItem("activeName")
-                var id = window.localStorage.getItem("activeID")               
-
                 var element = $(".childName")
                 element.html(name)
-            }
-            
-                
+            }   
         </script>
     </body>
 </html>
