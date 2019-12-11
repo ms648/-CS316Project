@@ -8,6 +8,22 @@ We used Django for our web framework. Our Models.py file corresponds with our SQ
 
 ## Compiling, setting up, deployment
 
+Our project utilizes fake data that we created using a Python script. (See the data_production.py module contained in our zip file)
+
+This module was created and used to build a fake dataset that corresponds to our current schema as well as all of the constraints we have on this data due to the nature of the platform.
+
+Inside the module, each function represents a distinct table. Under the main, one can choose the number of members in the dataset, the number of those members which are teachers and the number of days to have recording data for.
+
+Currently it is set at 10 members, 3 teachers and 10 days. Upon run, the output is saved to a (created) file named 'generated_inserts.sql' which includes around 550 insert statements that should be manually uploaded to the database within the docker mysql container environment..
+
+The data is successfully in there and the files we used to populate our database are as follows:
+
+1.
+create.sql - creates the tables and concurs with the correct schema
+
+2.
+generated_inserts.sql - contains all the insert statements created by data_production.py
+
 In order to compile, set up, and deploy our website locally, you will need to utilize Django and Docker. 
 
 First, download and set up Docker: https://docs.docker.com/docker-for-mac/install/
