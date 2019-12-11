@@ -34,6 +34,10 @@ def index(request):
     teachers = Teacher.objects.all()
     trackables = Trackable.objects.all()
     recordings = Recording.objects.all()
+    for recording in recordings:
+        loc = recording.location
+        recording.location = loc.split('/')[-1]
+        recording.save()
     notes = Note.objects.all()
     # IsStudentOf = IsStudentOf.objects.all()
     # Creates = Creates.objects.all()
@@ -50,7 +54,7 @@ def index(request):
         'query2':query2,
         'query3':query3,
         'assignments': Assignments,
-        'fin':finished_assignments
+        'fin':finished_assignments,
     }
     return render(request, "teacher_musicapp/index.html", context)
 
@@ -118,6 +122,9 @@ def frontend2(request):
             durations[i] = (i+1, durations[i][0], durations[i][1])
         trackableDict[track] = durations
 
+    for recording in recordings:
+        recording.location = recording.location.split('/')[-1]
+        recording.save()
     template = loader.get_template('teacher_musicapp/frontend2.html') #load this specific template
     context = {
         'users': users,
