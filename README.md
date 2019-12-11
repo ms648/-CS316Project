@@ -18,11 +18,9 @@ Currently it is set at 10 members, 3 teachers and 10 days. Upon run, the output 
 
 The data is successfully in there and the files we used to populate our database are as follows:
 
-1.
-create.sql - creates the tables and concurs with the correct schema
+1. create.sql - creates the tables and concurs with the correct schema
 
-2.
-generated_inserts.sql - contains all the insert statements created by data_production.py
+2. generated_inserts.sql - contains all the insert statements created by data_production.py
 
 In order to compile, set up, and deploy our website locally, you will need to utilize Django and Docker. 
 
