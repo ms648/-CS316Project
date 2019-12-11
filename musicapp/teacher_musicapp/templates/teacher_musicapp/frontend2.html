@@ -102,6 +102,9 @@
                 height: 100%;
                 width: 100%
             }
+            #nameRow {
+                margin-top: 1rem;
+            }
         </style>
         <script>
             var active = "{{students.0.student_id}}"
@@ -267,8 +270,8 @@
                                     <div class="row" style="border: 2px solid #6d4b9a; margin: 3px 0; font-size: 1rem">
                                         <div class = "col" style="border-right: 2px solid #6d4b9a"> {{assignment.practice_day}}</div>
                                         <div class = "col" style="border-right: 2px solid #6d4b9a"> {{assignment.trackable_name}}</div>
-                                        <div class = "col" > {{assignment.time}} minutes</div>
-                                        <div class = "col"></div>
+                                        <div class = "col" style="border-right: 2px solid #6d4b9a" > {{assignment.time}} minutes</div>
+                                        <div class = "col completedvalue"></div>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -302,9 +305,16 @@
                 setActive()
             })
 
-            $("#submit").on('click', function() {
-                alert("SUBMIT")
-            })
+            // var entries = document.getElementsByClassName("col completedvalue")
+            // for (var i = 0; i < entries.length; i++) {
+                
+            //     // entries.item(i).innerHTML = "complete"
+            // }
+
+            // $("#submit").on('click', function() {
+            //     alert("SUBMIT")
+
+            // })
 
             $("#newassign").on('click', function() {
                 $(this).attr("style", "display: none")
